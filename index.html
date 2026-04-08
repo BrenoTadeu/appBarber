@@ -7,26 +7,67 @@
     <title>Barber Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="imgs/logo-removebg-preview.png" type="image/x-icon">
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Sekuya&display=swap"
         rel="stylesheet">
     <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: #0F0F0F;
             color: white;
+            overflow-x: hidden;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            min-height: 50px;
+            background: transparent;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 130px;
+        }
+
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
         }
 
         header {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100svh;
+            padding: 16px;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-image: url('/imgs/20c9287356ed42c8c76ec0188c8303b9.jpg');
+            background-image: url('/imgs/background.jpg');
             position: relative;
             overflow: hidden;
         }
@@ -48,43 +89,54 @@
             font-family: 'Sekuya', sans-serif;
             position: relative;
             z-index: 2;
-        }
-
-        h1 {
             color: #C9A14A;
-            font-size: 2rem;
+            font-size: clamp(2rem, 9vw, 5rem);
             margin: 0;
             text-shadow: 0 0 10px rgba(201, 161, 74, 0.8), 2px 2px 15px rgba(0, 0, 0, 0.9);
-            letter-spacing: 3px;
+            letter-spacing: clamp(2px, 0.4vw, 3px);
             font-weight: bold;
             animation: glowPulse 2s ease-in-out infinite;
+            text-align: center;
         }
 
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.046);
-        }
-
-        .logo {
-            width: 100px;
-        }
-
-        .menu a {
+        .header-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1rem, 2.4vw, 1.7rem);
+            z-index: 3;
+            margin: 20px 0 10px 0;
+            text-align: center;
+            width: min(92vw, 720px);
             color: white;
-            text-decoration: none;
-            margin: 0 10px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-agendar {
+            background-color: #C9A14A;
+            color: #0F0F0F;
+            border: none;
+            padding: 15px 30px;
+            font-size: clamp(1rem, 2.2vw, 1.5rem);
+            z-index: 3;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-agendar:hover {
+            background-color: #A88A3E;
+            transform: scale(1.05);
         }
 
         .portfolio {
             overflow-x: auto;
             white-space: nowrap;
-            padding: 40px;
+            padding: clamp(20px, 4vw, 60px);
             scrollbar-width: thin;
             scrollbar-color: #C9A14A #1a1a1a;
+            margin-left: clamp(8px, 2vw, 16px);
+            margin-right: clamp(8px, 2vw, 16px);
         }
 
         .portfolio .images {
@@ -92,11 +144,11 @@
         }
 
         .image-container {
-            width: 300px;
-            height: 200px;
+            width: clamp(220px, 70vw, 500px);
+            height: clamp(150px, 46vw, 300px);
             overflow: hidden;
             border-radius: 5px;
-            margin: 0 5px;
+            margin: 0 6px;
             flex-shrink: 0;
         }
 
@@ -104,28 +156,416 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
         }
 
         .about {
-            padding: 30px;
+            padding: clamp(28px, 4vw, 50px);
             text-align: center;
         }
 
-        .about p{
+        .about p {
             font-family: 'Montserrat', sans-serif;
             font-weight: 400;
+            font-size: clamp(1rem, 2.2vw, 1.4rem);
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .contatos {
-            padding: 40px;
+            padding: clamp(28px, 5vw, 60px);
             text-align: center;
             background: #1a1a1a;
         }
 
+        .contact-form {
+            padding: clamp(24px, 4vw, 40px);
+            background: #1a1a1a;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(20px, 3.5vw, 40px);
+            flex-wrap: wrap;
+        }
+
+        .contact-text {
+            flex: 1 1 320px;
+            max-width: 560px;
+            text-align: center;
+        }
+
+        .contact-text h2 {
+            color: #C9A14A;
+            font-family: 'Sekuya', sans-serif;
+            margin-bottom: 20px;
+            font-size: clamp(1.9rem, 7vw, 3rem);
+        }
+
+        .contact-text p {
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .contact-text .contact-highlight {
+            color: rgba(201, 161, 74, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .contact-step-form {
+            flex: 1 1 320px;
+            max-width: 620px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-step-form form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 620px;
+        }
+
+        .step-indicator {
+            color: rgba(201, 161, 74, 0.9);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .contact-step {
+            display: block;
+            animation: fadeIn 0.3s ease;
+            width: 100%;
+        }
+
+        .contact-step.active {
+            display: block;
+        }
+
+        .contact-step.visible {
+            display: block;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(201, 161, 74, 0.5);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .contact-form button {
+            display: none;
+            background: #C9A14A;
+            color: #0F0F0F;
+            border: none;
+            padding: 12px 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: fit-content;
+        }
+
+        .contact-form button:hover {
+            background-color: #A88A3E;
+            transform: scale(1.05);
+        }
+
+        .testimonials {
+            padding: clamp(24px, 4vw, 80px);
+            background: #1a1a1a;
+            overflow: hidden;
+        }
+
+        .testimonial-content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: clamp(18px, 3.5vw, 40px);
+            flex-wrap: wrap;
+        }
+
+        .testimonial-info {
+            flex: 1 1 300px;
+            max-width: 520px;
+            text-align: left;
+        }
+
+        .testimonials h2 {
+            color: #C9A14A;
+            font-family: 'Sekuya', sans-serif;
+            margin-bottom: 20px;
+            font-size: clamp(1.9rem, 6.8vw, 2.8rem);
+        }
+
+        .testimonial-info p {
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+            line-height: 1.7;
+            max-width: 420px;
+        }
+
+        .testimonial-carousel {
+            flex: 1 1 320px;
+            max-width: 620px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .cards-wrapper {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .testimonials .cards {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            min-width: 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .testimonials .cards::-webkit-scrollbar {
+            display: none;
+            height: 8px;
+        }
+
+        .testimonials .cards::-webkit-scrollbar-thumb {
+            background: rgba(201, 161, 74, 0.8);
+            border-radius: 999px;
+        }
+
+        .testimonials .cards::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .testimonial-controls {
+            display: none;
+        }
+
+        .testimonial-btn {
+            background: #C9A14A;
+            color: #0F0F0F;
+            border: none;
+            border-radius: 999px;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            flex: 0 0 44px;
+        }
+
+        .testimonial-btn:hover {
+            background-color: #A88A3E;
+        }
+
+        .testimonial-btn:active {
+            transform: scale(0.94);
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(201, 161, 74, 0.7);
+            border-radius: 18px;
+            padding: 18px;
+            min-width: clamp(220px, 74vw, 280px);
+            max-width: clamp(240px, 76vw, 320px);
+            min-height: 220px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            scroll-snap-align: center;
+            transition: none;
+        }
+
+        .testimonial-card:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .testimonial-card .name {
+            font-weight: bold;
+            color: #C9A14A;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-card .text {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            flex: 1;
+        }
+
         .portfolio,
         .about,
-        .contatos {
+        .contatos,
+        .testimonials {
             display: none;
+        }
+
+        @media (max-width: 1024px) {
+            header {
+                background-attachment: scroll;
+            }
+        }
+
+        @media (max-width: 767px) {
+            nav {
+                height: auto;
+                padding: 12px 16px;
+                justify-content: center;
+            }
+
+            .logo {
+                width: 110px;
+            }
+
+            .menu a {
+                margin: 0;
+            }
+
+            .btn-agendar {
+                width: min(100%, 300px);
+            }
+
+            .portfolio {
+                padding: 20px 12px;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .image-container {
+                width: min(80vw, 300px);
+                height: min(52vw, 210px);
+            }
+
+            .contact-form,
+            .testimonials,
+            .about,
+            .contatos {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .contact-text,
+            .contact-step-form,
+            .testimonial-info,
+            .testimonial-carousel {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            .testimonial-content {
+                align-items: stretch;
+            }
+
+            .contact-form button {
+                width: 100%;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .menu a {
+                font-size: 1.2rem;
+                margin: 0 15px;
+            }
+
+            .testimonial-card {
+                max-width: 320px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .contact-step {
+                display: none;
+            }
+
+            .contact-step.visible,
+            .contact-step.active {
+                display: block;
+            }
+
+            .testimonial-card {
+                max-width: 350px;
+                padding: 22px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                text-shadow: 0 0 8px rgba(201, 161, 74, 0.55), 2px 2px 12px rgba(0, 0, 0, 0.8);
+            }
+
+            50% {
+                text-shadow: 0 0 14px rgba(201, 161, 74, 0.85), 2px 2px 16px rgba(0, 0, 0, 0.9);
+            }
+
+            100% {
+                text-shadow: 0 0 8px rgba(201, 161, 74, 0.55), 2px 2px 12px rgba(0, 0, 0, 0.8);
+            }
         }
 
         @keyframes slideInUp {
@@ -143,106 +583,104 @@
         .portfolio.show {
             animation: slideInUp 0.8s ease-out;
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        @media (min-width: 768px) {
-            h1 {
-                font-size: 4rem;
-            }
-
-            .logo {
-                width: 150px;
-            }
-
-            .menu a {
-                font-size: 1.2rem;
-                margin: 0 15px;
-            }
-
-            .portfolio {
-                padding: 60px;
-            }
-
-            .image-container {
-                width: 400px;
-                height: 250px;
-                margin: 0 10px;
-            }
-
-            .about {
-                padding: 50px;
-            }
-
-            .about p {
-                font-size: 1.2rem;
-                max-width: 600px;
-                margin: 0 auto;
-            }
-
-            .contatos {
-                padding: 60px;
-            }
-        }
-
-        /* Para telas ainda maiores, como desktop */
-        @media (min-width: 1024px) {
-            h1 {
-                font-size: 5rem;
-            }
-
-            .logo {
-                width: 200px;
-            }
-
-            .image-container {
-                width: 500px;
-                height: 300px;
-            }
-
-            .about p {
-                font-size: 1.4rem;
-                max-width: 800px;
-            }
-        }
     </style>
 </head>
 
 <body>
     <nav>
-        <img src="logo.png" alt="Logo" class="logo">
+        <img src="imgs/logo-removebg-preview.png" alt="Logo" class="logo">
         <div class="menu">
+            <a href="#testimonials">Depoimentos</a>
             <a href="#about">Sobre Mim</a>
-            <a href="#contatos">Contatos</a>
         </div>
     </nav>
 
     <header>
         <h1 id="banner"></h1>
+        <p class="header-text">Bem-vindo à Barber Pro, onde estilo encontra tradição. Agende seu horário agora!</p>
+        <button class="btn-agendar"
+            onclick="document.getElementById('contatos').scrollIntoView({behavior: 'smooth'});">Agendar</button>
     </header>
 
     <section class="portfolio">
         <div class="images">
             <div class="image-container">
-                <img src="/imgs/imagem1.jpg" alt="Portfolio 1">
+                <img src="/imgs/cortes/imagem1.jpg" alt="Portfolio 1">
             </div>
             <div class="image-container">
-                <img src="/imgs/imagem2.jpg" alt="Portfolio 2">
+                <img src="/imgs/cortes/imagem2.jpg" alt="Portfolio 2">
             </div>
             <div class="image-container">
-                <img src="image3.jpg" alt="Portfolio 3">
+                <img src="/imgs/cortes/imagem3.jpg" alt="Portfolio 3">
             </div>
             <div class="image-container">
-                <img src="image3.jpg" alt="Portfolio 3">
+                <img src="/imgs/cortes/imagem4.jpg" alt="Portfolio 3">
             </div>
             <div class="image-container">
-                <img src="image3.jpg" alt="Portfolio 3">
+                <img src="/imgs/cortes/imagem5.jpg" alt="Portfolio 3">
             </div>
-            <div class="image-container">
-                <img src="image3.jpg" alt="Portfolio 3">
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="testimonial-content">
+            <div class="testimonial-info">
+                <h2>O que dizem nossos clientes</h2>
+                <p>Descubra o carinho que os clientes têm pelo nosso trabalho. Deixe seu feedback e ajude a construir um
+                    espaço de confiança, estilo e satisfação para todos.</p>
             </div>
+            <div class="testimonial-carousel">
+                <button class="testimonial-btn" type="button" aria-label="Anterior" onclick="scrollTestimonial(-1)">←</button>
+                <div class="cards-wrapper">
+                    <div class="cards">
+                        <div class="testimonial-card">
+                            <div>
+                                <div class="name">João Silva</div>
+                                <div class="text">"O corte ficou impecável e o ambiente me deixou muito à vontade. Sempre
+                                    surpreendo amigos com o resultado!"</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div>
+                                <div class="name">Fernando Oliveira</div>
+                                <div class="text">"Atendimento impecável e estilo personalizado. Saí e já quero agendar
+                                    novamente."</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div>
+                                <div class="name">Carlos Santos</div>
+                                <div class="text">"Profissional dedicado e resultado de primeira. Meus amigos não param de
+                                    elogiar o corte!"</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="testimonial-btn" type="button" aria-label="Próximo" onclick="scrollTestimonial(1)">→</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact-form" class="contact-form">
+        <div class="contact-text">
+            <span class="contact-highlight">Contato rápido</span>
+            <h2>Pronto para agendar seu próximo corte?</h2>
+            <p>Preencha o formulário passo a passo e avance com Enter. Cada novo campo aparece em seguida, mas os anteriores continuam visíveis.</p>
+        </div>
+        <div class="contact-step-form">
+            <div class="step-indicator">Passo 1 de 3</div>
+            <form id="whatsappForm" onsubmit="sendToWhatsApp(event)">
+                <div class="contact-step active visible" data-step="1">
+                    <input type="text" id="name" placeholder="Seu nome" required maxlength="40">
+                </div>
+                <div class="contact-step" data-step="2">
+                    <input type="email" id="email" placeholder="Seu email" required maxlength="50">
+                </div>
+                <div class="contact-step" data-step="3">
+                    <textarea id="message" placeholder="Sua mensagem" required maxlength="250"></textarea>
+                </div>
+                <button id="whatsappSubmitButton" type="submit">Enviar para WhatsApp</button>
+            </form>
         </div>
     </section>
 
@@ -251,11 +689,10 @@
         <p>Olá, sou um barbeiro apaixonado pelo meu trabalho. Com anos de experiência, ofereço cortes e estilos
             personalizados para cada cliente.</p>
     </section>
-
     <footer id="contatos" class="contatos">
         <h2>Contatos</h2>
         <p>Email: seuemail@exemplo.com</p>
-        <p>Telefone: (11) 99999-9999</p>
+        <p>Telefone: (11) 97770-7053</p>
         <p>Endereço: Rua Exemplo, 123 - Cidade</p>
     </footer>
 
@@ -279,19 +716,117 @@
                 portfolio.classList.add('show');
                 // Fazer o carrossel começar da segunda imagem
                 setTimeout(() => {
-                    const imagesDiv = document.querySelector('.portfolio .images');
                     const imageContainer = document.querySelector('.image-container');
                     if (imageContainer) {
                         const containerWidth = imageContainer.offsetWidth + 10; // 10px de margin
                         portfolio.scrollLeft = containerWidth;
                     }
+
+                    const testimonialCarousel = document.querySelector('.testimonials .cards');
+                    const testimonialCard = document.querySelector('.testimonial-card');
+                    if (testimonialCarousel && testimonialCard) {
+                        testimonialCarousel.scrollLeft = testimonialCard.offsetWidth + 20;
+                    }
                 }, 100);
                 document.querySelector('.about').style.display = 'block';
+                document.querySelector('.testimonials').style.display = 'block';
                 document.querySelector('.contatos').style.display = 'block';
             }
         }
 
-        window.onload = typeWriter;
+        window.onload = () => {
+            typeWriter();
+            setupContactSteps();
+        };
+
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            const whatsappNumber = "5511988920904";
+            
+            const text = `Nome: ${name}%0AEmail: ${email}%0AMensagem: ${message}`;
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${text}`;
+            
+            window.open(whatsappUrl, '_blank');
+            
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+            showStep(1);
+        }
+
+        function setupContactSteps() {
+            const steps = document.querySelectorAll('.contact-step');
+            const inputs = document.querySelectorAll('.contact-step input, .contact-step textarea');
+            const submitButton = document.getElementById('whatsappSubmitButton');
+
+            const updateSubmitButton = (step) => {
+                if (!submitButton) return;
+                submitButton.style.display = step === steps.length ? 'block' : 'none';
+            };
+
+            inputs.forEach((input) => {
+                input.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        const currentStep = Number(event.target.closest('.contact-step').dataset.step);
+
+                        if (currentStep < steps.length) {
+                            showStep(currentStep + 1);
+                        } else {
+                            document.getElementById('whatsappForm').requestSubmit();
+                        }
+                    }
+                });
+
+                input.addEventListener('focus', (event) => {
+                    const currentStep = Number(event.target.closest('.contact-step').dataset.step);
+                    updateSubmitButton(currentStep);
+                });
+            });
+
+            updateSubmitButton(1);
+        }
+
+        function showStep(step) {
+            const steps = document.querySelectorAll('.contact-step');
+            const indicator = document.querySelector('.step-indicator');
+            const submitButton = document.getElementById('whatsappSubmitButton');
+
+            steps.forEach((stepElement) => {
+                const stepIndex = Number(stepElement.dataset.step);
+                const isVisible = stepIndex <= step;
+                stepElement.classList.toggle('visible', isVisible);
+                stepElement.classList.toggle('active', stepIndex === step);
+            });
+
+            if (indicator) {
+                indicator.textContent = `Passo ${step} de ${steps.length}`;
+            }
+
+            if (submitButton) {
+                submitButton.style.display = step === steps.length ? 'block' : 'none';
+            }
+
+            const activeInput = document.querySelector(`.contact-step[data-step="${step}"] input, .contact-step[data-step="${step}"] textarea`);
+            if (activeInput) {
+                activeInput.focus();
+            }
+        }
+
+        function scrollTestimonial(direction) {
+            const carousel = document.querySelector('.testimonials .cards');
+            const card = document.querySelector('.testimonial-card');
+            if (!carousel || !card) return;
+            const gap = 20;
+            const scrollAmount = card.offsetWidth + gap;
+            const targetScroll = carousel.scrollLeft + direction * scrollAmount;
+            carousel.scrollTo({ left: targetScroll, behavior: 'smooth' });
+        }
 
         // Efeito de sombreamento ao fazer scroll
         window.addEventListener('scroll', () => {
