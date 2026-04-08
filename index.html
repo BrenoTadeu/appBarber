@@ -4,65 +4,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Barber Pro</title>
+    <title>Barber Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Sekuya&display=swap"
+        rel="stylesheet">
     <style>
         body {
             margin: 0;
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             background: #0F0F0F;
             color: white;
         }
 
         header {
-            padding: 40px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-image: url('/imgs/20c9287356ed42c8c76ec0188c8303b9.jpg');
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            pointer-events: none;
+            z-index: 1;
+            transition: background 0.3s ease;
+        }
+
+        header h1 {
+            font-family: 'Sekuya', sans-serif;
+            position: relative;
+            z-index: 2;
         }
 
         h1 {
             color: #C9A14A;
+            font-size: 2rem;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(201, 161, 74, 0.8), 2px 2px 15px rgba(0, 0, 0, 0.9);
+            letter-spacing: 3px;
+            font-weight: bold;
+            animation: glowPulse 2s ease-in-out infinite;
         }
 
-        button {
-            background: #C9A14A;
-            border: none;
-            padding: 15px 25px;
-            cursor: pointer;
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.046);
         }
 
-        section {
+        .logo {
+            width: 100px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .portfolio {
+            overflow-x: auto;
+            white-space: nowrap;
             padding: 40px;
+            scrollbar-width: thin;
+            scrollbar-color: #C9A14A #1a1a1a;
+        }
+
+        .portfolio .images {
+            display: inline-flex;
+        }
+
+        .image-container {
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 5px;
+            margin: 0 5px;
+            flex-shrink: 0;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about {
+            padding: 30px;
             text-align: center;
         }
 
-        .card {
-            margin: 10px;
-            padding: 20px;
+        .about p{
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+
+        .contatos {
+            padding: 40px;
+            text-align: center;
             background: #1a1a1a;
-            display: inline-block;
+        }
+
+        .portfolio,
+        .about,
+        .contatos {
+            display: none;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .portfolio.show {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 4rem;
+            }
+
+            .logo {
+                width: 150px;
+            }
+
+            .menu a {
+                font-size: 1.2rem;
+                margin: 0 15px;
+            }
+
+            .portfolio {
+                padding: 60px;
+            }
+
+            .image-container {
+                width: 400px;
+                height: 250px;
+                margin: 0 10px;
+            }
+
+            .about {
+                padding: 50px;
+            }
+
+            .about p {
+                font-size: 1.2rem;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .contatos {
+                padding: 60px;
+            }
+        }
+
+        /* Para telas ainda maiores, como desktop */
+        @media (min-width: 1024px) {
+            h1 {
+                font-size: 5rem;
+            }
+
+            .logo {
+                width: 200px;
+            }
+
+            .image-container {
+                width: 500px;
+                height: 300px;
+            }
+
+            .about p {
+                font-size: 1.4rem;
+                max-width: 800px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <nav>
+        <img src="logo.png" alt="Logo" class="logo">
+        <div class="menu">
+            <a href="#about">Sobre Mim</a>
+            <a href="#contatos">Contatos</a>
+        </div>
+    </nav>
+
     <header>
-        <h1>Agenda Barber Pro</h1>
-        <p>Sua agenda cheia todos os dias</p>
-        <button onclick="whats()">Agendar agora</button>
+        <h1 id="banner"></h1>
     </header>
-    <section>
-        <h2>Serviços</h2>
-        <div class="card">Corte Masculino</div>
-        <div class="card">Barba</div>
-        <div class="card">Corte + Barba</div>
+
+    <section class="portfolio">
+        <div class="images">
+            <div class="image-container">
+                <img src="/imgs/imagem1.jpg" alt="Portfolio 1">
+            </div>
+            <div class="image-container">
+                <img src="/imgs/imagem2.jpg" alt="Portfolio 2">
+            </div>
+            <div class="image-container">
+                <img src="image3.jpg" alt="Portfolio 3">
+            </div>
+            <div class="image-container">
+                <img src="image3.jpg" alt="Portfolio 3">
+            </div>
+            <div class="image-container">
+                <img src="image3.jpg" alt="Portfolio 3">
+            </div>
+            <div class="image-container">
+                <img src="image3.jpg" alt="Portfolio 3">
+            </div>
+        </div>
     </section>
-    <section>
-        <h2>Benefícios</h2>
-        <p>Mais clientes, mais organização e menos tempo no WhatsApp</p>
+
+    <section id="about" class="about">
+        <h2>Sobre Mim</h2>
+        <p>Olá, sou um barbeiro apaixonado pelo meu trabalho. Com anos de experiência, ofereço cortes e estilos
+            personalizados para cada cliente.</p>
     </section>
+
+    <footer id="contatos" class="contatos">
+        <h2>Contatos</h2>
+        <p>Email: seuemail@exemplo.com</p>
+        <p>Telefone: (11) 99999-9999</p>
+        <p>Endereço: Rua Exemplo, 123 - Cidade</p>
+    </footer>
+
     <script>
-        function whats() {
-            window.location.href = "https://wa.me/5511999999999";
+        const banner = document.getElementById('banner');
+        const text = 'Barber Pro';
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                banner.innerHTML += text.charAt(i);
+                banner.style.opacity = '1';
+                i++;
+                setTimeout(typeWriter, 100);
+            } else {
+                // Após a digitação, mostrar os outros elementos
+                document.querySelector('nav').style.display = 'flex';
+
+                const portfolio = document.querySelector('.portfolio');
+                portfolio.style.display = 'block';
+                portfolio.classList.add('show');
+                // Fazer o carrossel começar da segunda imagem
+                setTimeout(() => {
+                    const imagesDiv = document.querySelector('.portfolio .images');
+                    const imageContainer = document.querySelector('.image-container');
+                    if (imageContainer) {
+                        const containerWidth = imageContainer.offsetWidth + 10; // 10px de margin
+                        portfolio.scrollLeft = containerWidth;
+                    }
+                }, 100);
+                document.querySelector('.about').style.display = 'block';
+                document.querySelector('.contatos').style.display = 'block';
+            }
         }
+
+        window.onload = typeWriter;
+
+        // Efeito de sombreamento ao fazer scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const scrollPosition = window.scrollY;
+            const maxScroll = header.offsetHeight;
+            const opacity = Math.min(0.65 + (scrollPosition / maxScroll * 0.1), 0.75);
+            header.style.setProperty('--shadow-opacity', opacity);
+        });
+
+        // Atualizar a variável CSS para o sombreamento
+        const style = document.createElement('style');
+        style.textContent = `
+            header::before {
+                background: rgba(0, 0, 0, var(--shadow-opacity, 0.65)) !important;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 
