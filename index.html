@@ -686,6 +686,15 @@
             .contact-form button {
                 width: 100%;
             }
+
+            .whatsapp-float {
+                right: 12px;
+                bottom: 12px;
+            }
+
+            .whatsapp-float-label {
+                display: none;
+            }
         }
 
         @media (min-width: 768px) {
@@ -755,6 +764,61 @@
 
         .portfolio.show {
             animation: slideInUp 0.8s ease-out;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            right: clamp(12px, 2.4vw, 24px);
+            bottom: clamp(12px, 2.4vw, 24px);
+            width: clamp(54px, 8vw, 62px);
+            height: clamp(54px, 8vw, 62px);
+            border-radius: 50%;
+            background: #25D366;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+            z-index: 999;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.06);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.42);
+        }
+
+        .whatsapp-float:active {
+            transform: scale(0.97);
+        }
+
+        .whatsapp-float svg {
+            width: 58%;
+            height: 58%;
+            fill: currentColor;
+        }
+
+        .whatsapp-float-label {
+            position: absolute;
+            right: calc(100% + 10px);
+            white-space: nowrap;
+            background: rgba(15, 15, 15, 0.95);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            opacity: 0;
+            transform: translateX(8px);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .whatsapp-float:hover .whatsapp-float-label {
+            opacity: 1;
+            transform: translateX(0);
         }
     </style>
 </head>
@@ -915,6 +979,15 @@
             <p>© 2026 Barber Pro · Todos os direitos reservados</p>
         </div>
     </footer>
+
+    <a class="whatsapp-float" href="https://wa.me/551199999999" target="_blank" rel="noopener noreferrer"
+        aria-label="Falar no WhatsApp">
+        <span class="whatsapp-float-label">WhatsApp</span>
+        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+            <path
+                d="M16.01 3C8.83 3 3 8.74 3 15.82c0 2.56.77 5.01 2.23 7.11L3.8 29l6.31-1.4a13.14 13.14 0 0 0 5.9 1.4h.01c7.18 0 13.01-5.74 13.01-12.82S23.2 3 16.01 3Zm0 23.57h-.01a10.8 10.8 0 0 1-5.5-1.5l-.4-.24-3.75.83.8-3.64-.26-.42a10.56 10.56 0 0 1-1.63-5.64c0-5.88 4.84-10.66 10.78-10.66 5.94 0 10.78 4.78 10.78 10.66 0 5.88-4.84 10.61-10.79 10.61Zm5.91-7.94c-.32-.16-1.9-.93-2.19-1.03-.29-.11-.5-.16-.71.16-.21.31-.82 1.03-1.01 1.24-.18.21-.37.24-.69.08-.32-.16-1.34-.49-2.56-1.56-.95-.83-1.58-1.85-1.77-2.16-.18-.31-.02-.48.14-.64.14-.14.32-.37.48-.55.16-.19.21-.31.32-.52.11-.21.05-.4-.03-.56-.08-.16-.71-1.7-.98-2.34-.26-.61-.52-.53-.71-.54h-.61c-.21 0-.56.08-.85.4-.29.31-1.12 1.1-1.12 2.68 0 1.58 1.15 3.11 1.31 3.32.16.21 2.26 3.62 5.58 4.93.79.31 1.41.49 1.9.63.8.22 1.53.19 2.1.12.64-.1 1.9-.78 2.17-1.54.27-.75.27-1.39.19-1.54-.08-.16-.29-.24-.61-.4Z" />
+        </svg>
+    </a>
 
     <script>
         const banner = document.getElementById('banner');
